@@ -8,6 +8,7 @@ class PersistentBottomNavBarItem {
       this.title,
       this.contentPadding = 5.0,
       this.activeColorPrimary = CupertinoColors.activeBlue,
+      this.backgroundColor,
       this.activeColorSecondary,
       this.inactiveColorPrimary,
       this.inactiveColorSecondary = CupertinoColors.systemGrey,
@@ -17,7 +18,8 @@ class PersistentBottomNavBarItem {
       this.iconSize = 26.0,
       this.onSelectedTabPressWhenNoScreensPushed,
       this.routeAndNavigatorSettings = const RouteAndNavigatorSettings(),
-      this.onPressed})
+      this.onPressed,
+        this.onLongPress})
       : assert(opacity >= 0 && opacity <= 1.0,
             "Opacity cannot be greater than 1 and less than 0");
 
@@ -32,6 +34,7 @@ class PersistentBottomNavBarItem {
 
   ///Color for the current selected item in the navigation bar. If `activeColorSecondary` property is empty, this will act in its place (recommended). `cupertino activeBlue` by default.
   final Color activeColorPrimary;
+  final Color? backgroundColor;
 
   ///Color for the unselected item(s) in the navigation bar.
   final Color? inactiveColorPrimary;
@@ -56,6 +59,8 @@ class PersistentBottomNavBarItem {
   ///
   ///NOTE: This will override the default tab switiching behavior for this particular item.
   final Function(BuildContext?)? onPressed;
+
+  final Function(BuildContext?)? onLongPress;
 
   ///Use it when you want to run some code when user presses the NavBar when on the initial screen of that respective tab. The inspiration was taken from the native iOS navigation bar behavior where when performing similar operation, you taken to the top of the list.
   ///

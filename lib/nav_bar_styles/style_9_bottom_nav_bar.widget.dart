@@ -96,21 +96,29 @@ class BottomNavStyle9 extends StatelessWidget {
             final int index = navBarEssentials!.items!.indexOf(item);
             return Flexible(
               flex: navBarEssentials!.selectedIndex == index ? 2 : 1,
-              child: GestureDetector(
-                onTap: () {
-                  if (navBarEssentials!.items![index].onPressed != null) {
-                    navBarEssentials!.items![index].onPressed!(
-                        navBarEssentials!.selectedScreenBuildContext);
-                  } else {
-                    navBarEssentials!.onItemSelected!(index);
-                  }
-                },
-                child: Container(
-                  color: Colors.transparent,
-                  child: _buildItem(
-                      item,
-                      navBarEssentials!.selectedIndex == index,
-                      navBarEssentials!.navBarHeight),
+              child: Material(
+                color: navBarEssentials!.items![index].backgroundColor ??
+                    Theme.of(context).backgroundColor,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(32),
+                  onTap: () {
+                    if (navBarEssentials!.items![index].onPressed != null) {
+                      navBarEssentials!.items![index].onPressed!(
+                          navBarEssentials!.selectedScreenBuildContext);
+                    } else {
+                      navBarEssentials!.onItemSelected!(index);
+                    }
+                  },
+                  onLongPress: () {
+                    navBarEssentials?.items?[index].onLongPress?.call(navBarEssentials?.selectedScreenBuildContext);
+                  },
+                  child: Container(
+                    color: Colors.transparent,
+                    child: _buildItem(
+                        item,
+                        navBarEssentials!.selectedIndex == index,
+                        navBarEssentials!.navBarHeight),
+                  ),
                 ),
               ),
             );
